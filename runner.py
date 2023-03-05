@@ -21,12 +21,17 @@ runner_exec: tuple[str, ...] = (
     "-i",
 )
 
+
+def parse_entries_directories() -> list[Path]:
+    xdg_data_dirs = os.getenv("XDG_DATA_DIRS") or "/usr/local/share:/usr/share"
+    xdg_data_home = os.getenv("XDG_DATA_HOME") or "~/.local/share"
+    entries = f"{xdg_data_dirs}:{xdg_data_home}".split(":")
+    return [Path(dir) / "applications" for dir in entries]
+
+
 # TODO: use $XDG_DATA_DIRS instead
-entries_directories: tuple[Path, ...] = (
-    Path("/usr/share/applications"),
-    Path("/usr/local/share/applications"),
-    Path(os.getenv("XDG_DATA_HOME") or "~/.local/share") / "applications",
-)
+entries_directories = parse_entries_directories()
+print(entries_directories)
 
 
 apps: dict[str, list[str]] = {}
