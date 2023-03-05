@@ -44,11 +44,11 @@ def parse_entry(entry_path: Path) -> None:
                 case [single_line]:
                     # Comments
                     if single_line.startswith("#"):
-                        return
+                        continue
                     # Usually desktop entry section goes first, so we won't
                     # sacrifice on correctness much
                     if single_line != "[Desktop Entry]\n":
-                        return
+                        break
                 
                 case ["Name", s]:
                     name = s
