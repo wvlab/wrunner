@@ -38,10 +38,13 @@ def parse_entry(entry_path: Path) -> None:
     with open(entry_path, "r", encoding="utf-8") as f:
         for line in f:
             match line.split("=", 1):
-                case [header]:
+                case [single_line]:
+                    # Comments
+                    if single_line.startswith("#"):
+                        return
                     # Usually desktop entry section goes first, so we won't
                     # sacrifice on correctness much
-                    if header != "[Desktop Entry]\n":
+                    if single_line != "[Desktop Entry]\n":
                         return
                 
                 case ["Name", s]:
