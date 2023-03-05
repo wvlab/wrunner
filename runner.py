@@ -8,7 +8,7 @@ import typing
 # TODO: add support for L10n
 # TODO: create better parser to distinguish sections
 # TODO: add support for desktop actions
-# TODO: add support for *.direcory files
+# TODO: add support for *.directory files
 
 
 terminal_exec: list[str] = [
@@ -29,9 +29,7 @@ def parse_entries_directories() -> list[Path]:
     return [Path(dir) / "applications" for dir in entries]
 
 
-# TODO: use $XDG_DATA_DIRS instead
 entries_directories = parse_entries_directories()
-print(entries_directories)
 
 
 apps: dict[str, list[str]] = {}
